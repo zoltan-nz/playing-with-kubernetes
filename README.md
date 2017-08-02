@@ -4,7 +4,7 @@
 * https://kubernetes.io/docs/getting-started-guides/minikube/
 
 
-### Installation steps
+### Prerequisites
 
 Setup Docker and VM support:
 
@@ -41,9 +41,26 @@ Minikube runs a single-node Kubernetes cluster inside a VM on your laptop for us
 
 * https://github.com/kubernetes/minikube/blob/v0.22.2/README.md
 
+# What is it for?
+
+* Kubernetes helps to run containerized applications where and when you want
+* Kubernetes helps containerized apps find the resources and tools they need to work.
+
+## Cluster and Master
+
+[Source](https://kubernetes.io/docs/tutorials/kubernetes-basics/cluster-intro/)
+
+![cluster_master](https://d33wubrfki0l68.cloudfront.net/99d9808dcbf2880a996ed50d308a186b5900cec9/40b94/docs/tutorials/kubernetes-basics/public/images/module_01_cluster.svg)
+
+* **The Master** is responsible for managing the cluster
+* **Node** is a worker machine, a docker container
+
+### Creating a cluster
+
 Start minikube cluster:
 
 ```bash
+$ minikube version
 $ minikube start --vm-driver=xhyve
 $ minikube dashboard
 $ kubectl cluster-info
