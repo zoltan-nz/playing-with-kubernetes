@@ -64,5 +64,24 @@ $ minikube version
 $ minikube start --vm-driver=xhyve
 $ minikube dashboard
 $ kubectl cluster-info
+$ kubectl get nodes
 ```
+
+## Deployment
+
+[Source](https://kubernetes.io/docs/tutorials/kubernetes-basics/deploy-intro/)
+
+* Self healing mechanism
+
+### Let's create our simple application in Node.js
+
+* Check `./app` folder.
+* Check `./app/Dockerfile`.
+
+```
+$ docker build -t zoltannz/kubernetes-app.
+$ docker run -p 3000:3000 zoltannz/kubernetes-app
+$ docker push zoltannz/kubernetes-app
+```
+
 
