@@ -1,4 +1,6 @@
-# kubernetes
+# kubernetes Tutorial
+## Getting started with Kubernetes
+
 
 * https://kubernetes.io/docs/tasks/tools/install-minikube/
 * https://kubernetes.io/docs/getting-started-guides/minikube/
@@ -8,14 +10,14 @@
 
 Setup Docker and VM support:
 
-```bash
-$ brew install docker-machine-driver-xhyve
-$ brew info docker-machine-driver-xhyve
+[More details](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperkit-driver)
 
-This driver requires superuser privileges to access the hypervisor. To
-enable, execute
-    $ sudo chown root:wheel $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve
-    $ sudo chmod u+s $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve
+```bash
+curl -LO https://storage.googleapis.com/minikube/releases/latest/docker-machine-driver-hyperkit \
+&& chmod +x docker-machine-driver-hyperkit \
+&& sudo mv docker-machine-driver-hyperkit /usr/local/bin/ \
+&& sudo chown root:wheel /usr/local/bin/docker-machine-driver-hyperkit \
+&& sudo chmod u+s /usr/local/bin/docker-machine-driver-hyperkit
 ```
 
 Install Kubernetes command line interface:
@@ -33,7 +35,7 @@ Install minikube:
 
 
 ```bash
-$ curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.22.2/minikube-darwin-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
+$ brew cask install minikube
 $ minikube version
 ```
 
@@ -61,7 +63,12 @@ Start minikube cluster:
 
 ```bash
 $ minikube version
-$ minikube start --vm-driver=xhyve
+$ minikube start --vm-driver=hyperkit
+```
+Deploy the Dashboard:
+
+```bash
+$ kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
 $ minikube dashboard
 $ kubectl cluster-info
 $ kubectl get nodes
