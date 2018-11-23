@@ -6,19 +6,11 @@ The following instruction is mainly relevant for macOS.
 
 - [Install Docker for Mac with Kubernetes support](https://docs.docker.com/docker-for-mac/install/)
 
-## What is Kubernetes for?
+## Readings
 
-- Kubernetes helps to run containerized applications where and when you want
-- Kubernetes helps containerized apps find the resources and tools they need to work.
-
-## Cluster and Master
-
-[Source](https://kubernetes.io/docs/tutorials/kubernetes-basics/cluster-intro/)
-
-![cluster_master](https://d33wubrfki0l68.cloudfront.net/99d9808dcbf2880a996ed50d308a186b5900cec9/40b94/docs/tutorials/kubernetes-basics/public/images/module_01_cluster.svg)
-
-* **The Master** is responsible for managing the cluster
-* **Node** is a worker machine, a docker container
+- [The Illustrated Children’s Guide to Kubernetes](https://www.cncf.io/the-childrens-illustrated-guide-to-kubernetes/)
+- [Concepts](https://kubernetes.io/docs/concepts/)
+- [Tutorial](https://kubernetes.io/docs/tutorials/)
 
 ## Setup Dashboard
 
@@ -26,18 +18,32 @@ The following instruction is mainly relevant for macOS.
 - [Creating Bearer Token](https://github.com/kubernetes/dashboard/wiki/Creating-sample-user)
 
 ```bash
+$ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v1.10.1/src/deploy/recommended/kubernetes-dashboard.yaml
 $ kubectl proxy
 $ open http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/#!/overview?namespace=default
+```
+Getting the authentication token
+
+```
 $ kubectl apply -f dashboard-admin-user.yaml
 $ kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep admin-user | awk '{print $1}')
+$ open localhost:8001
 ```
 
-Deploy the Dashboard:
+Other option to enable `skip` button on login page. Add `enable-skip-login` argument to the container.
 
-```bash
-$ kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
-
-$ open localhost:8001
+```yaml
+#...
+      containers:
+        - name: kubernetes-dashboard
+          image: k8s.gcr.io/kubernetes-dashboard-amd64:v1.10.1
+          ports:
+            - containerPort: 8443
+              protocol: TCP
+          args:
+            - --auto-generate-certificates
+            - --enable-skip-login
+#...            
 ```
 
 ```bash
