@@ -1,52 +1,15 @@
-# kubernetes Tutorial
+# Kubernetes Tutorial
+
+The following instruction is mainly relevant for macOS.
+
 ## Getting started with Kubernetes
 
+- [Install Docker for Mac with Kubernetes support](https://docs.docker.com/docker-for-mac/install/)
 
-* https://kubernetes.io/docs/tasks/tools/install-minikube/
-* https://kubernetes.io/docs/getting-started-guides/minikube/
+## What is Kubernetes for?
 
-
-### Prerequisites
-
-Setup Docker and VM support:
-
-[More details](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperkit-driver)
-
-```bash
-curl -LO https://storage.googleapis.com/minikube/releases/latest/docker-machine-driver-hyperkit \
-&& chmod +x docker-machine-driver-hyperkit \
-&& sudo mv docker-machine-driver-hyperkit /usr/local/bin/ \
-&& sudo chown root:wheel /usr/local/bin/docker-machine-driver-hyperkit \
-&& sudo chmod u+s /usr/local/bin/docker-machine-driver-hyperkit
-```
-
-Install Kubernetes command line interface:
-
-* https://kubernetes.io/docs/tasks/tools/install-kubectl/
-
-```bash
-$ brew install kubectl
-$ kubectl version
-```
-
-Install minikube:
-
-* https://github.com/kubernetes/minikube/releases
-
-
-```bash
-$ brew cask install minikube
-$ minikube version
-```
-
-Minikube runs a single-node Kubernetes cluster inside a VM on your laptop for users looking to try out Kubernetes or develop with it day-to-day.
-
-* https://github.com/kubernetes/minikube/blob/v0.22.2/README.md
-
-# What is it for?
-
-* Kubernetes helps to run containerized applications where and when you want
-* Kubernetes helps containerized apps find the resources and tools they need to work.
+- Kubernetes helps to run containerized applications where and when you want
+- Kubernetes helps containerized apps find the resources and tools they need to work.
 
 ## Cluster and Master
 
@@ -57,19 +20,27 @@ Minikube runs a single-node Kubernetes cluster inside a VM on your laptop for us
 * **The Master** is responsible for managing the cluster
 * **Node** is a worker machine, a docker container
 
-### Creating a cluster
+## Setup Dashboard
 
-Start minikube cluster:
+- [Dashboard](https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/)
+- [Creating Bearer Token](https://github.com/kubernetes/dashboard/wiki/Creating-sample-user)
 
 ```bash
-$ minikube version
-$ minikube start --vm-driver=hyperkit
+$ kubectl proxy
+$ open http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/#!/overview?namespace=default
+$ kubectl apply -f dashboard-admin-user.yaml
+$ kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep admin-user | awk '{print $1}')
 ```
+
 Deploy the Dashboard:
 
 ```bash
 $ kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
-$ minikube dashboard
+
+$ open localhost:8001
+```
+
+```bash
 $ kubectl cluster-info
 $ kubectl get nodes
 ```
@@ -95,7 +66,7 @@ $ docker push zoltannz/kubernetes-app
 
 ```
 $ kubectl get nodes
-$ minikube dashboard
+$ open localhost:8001
 $ kubectl run hello-world --image=zoltannz/kubernetes-app --port=3000
 ```
 
