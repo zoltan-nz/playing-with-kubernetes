@@ -51,11 +51,22 @@ $ kubectl cluster-info
 $ kubectl get nodes
 ```
 
+## Monitoring
+
+- [cAdvisor Kubernetes Daemonset](https://github.com/google/cadvisor/tree/master/deploy/kubernetes)
+- [Prometheus](https://prometheus.io/docs/prometheus/latest/installation/)
+
+
+## Helm
+
+```
+brew install helm
+helm init --service-account tiller
+```
+
 ## Deployment
 
 [Source](https://kubernetes.io/docs/tutorials/kubernetes-basics/deploy-intro/)
-
-* Self healing mechanism
 
 ### Let's create our simple application in Node.js
 
