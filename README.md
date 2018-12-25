@@ -1,4 +1,4 @@
-# Kubernetes Tutorial
+# Playing with Kubernetes
 
 The following instruction is mainly relevant for macOS.
 
@@ -14,37 +14,9 @@ The following instruction is mainly relevant for macOS.
 
 ## Setup Dashboard
 
-- [Dashboard](https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/)
-- [Creating Bearer Token](https://github.com/kubernetes/dashboard/wiki/Creating-sample-user)
+[Dashboard README](./kubernetes-configurations/dashboard/README.md)
 
-```bash
-$ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v1.10.1/src/deploy/recommended/kubernetes-dashboard.yaml
-$ kubectl proxy
-$ open http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/#!/overview?namespace=default
-```
-Getting the authentication token
-
-```
-$ kubectl apply -f dashboard-admin-user.yaml
-$ kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep admin-user | awk '{print $1}')
-$ open localhost:8001
-```
-
-Other option to enable `skip` button on login page. Add `enable-skip-login` argument to the container.
-
-```yaml
-#...
-      containers:
-        - name: kubernetes-dashboard
-          image: k8s.gcr.io/kubernetes-dashboard-amd64:v1.10.1
-          ports:
-            - containerPort: 8443
-              protocol: TCP
-          args:
-            - --auto-generate-certificates
-            - --enable-skip-login
-#...            
-```
+## Getting information about your cluster and nodes
 
 ```bash
 $ kubectl cluster-info
@@ -55,7 +27,6 @@ $ kubectl get nodes
 
 - [cAdvisor Kubernetes Daemonset](https://github.com/google/cadvisor/tree/master/deploy/kubernetes)
 - [Prometheus](https://prometheus.io/docs/prometheus/latest/installation/)
-
 
 ## Helm
 
@@ -70,8 +41,8 @@ helm init --service-account tiller
 
 ### Let's create our simple application in Node.js
 
-* Check `./app` folder.
-* Check `./app/Dockerfile`.
+- Check `./app` folder.
+- Check `./app/Dockerfile`.
 
 ```
 $ docker build -t zoltannz/kubernetes-app.
@@ -87,17 +58,17 @@ $ open localhost:8001
 $ kubectl run hello-world --image=zoltannz/kubernetes-app --port=3000
 ```
 
-* searched for a suitable node where an instance of the application could be run (we have only 1 available node)
-* scheduled the application to run on that Node
-* configured the cluster to reschedule the instance on a new Node when needed
-* Check pods on Dashboard.
-* Deploy container with GUI.
+- searched for a suitable node where an instance of the application could be run (we have only 1 available node)
+- scheduled the application to run on that Node
+- configured the cluster to reschedule the instance on a new Node when needed
+- Check pods on Dashboard.
+- Deploy container with GUI.
 
 ```
 $ kubectl get deployments
 ```
 
-* Kubernetes run pods in an isolated network, we have to open it up.
+- Kubernetes run pods in an isolated network, we have to open it up.
 
 ```
 $ kubectl proxy
@@ -125,4 +96,18 @@ Running command inside in our Pod container
 
 ```
 $ kubectl exec -ti hello-world-4149272534-4627k /bin/sh
+```
+
+### Namespace
+
+Create namespace for `the-pipeline`:
+
+```
+kubectl create namespace the-pipeline
+```
+
+Create `the-pipeline` context for the `the-pipeline` namespace.
+
+```
+kubectl config set-context the-pipeline --namespace=the-pipeline
 ```
