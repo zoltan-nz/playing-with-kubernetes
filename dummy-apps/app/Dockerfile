@@ -1,4 +1,4 @@
-FROM node:alpine
+xFROM node:alpine
 RUN apk add --no-cache libc6-compat curl
 EXPOSE 3000
 
