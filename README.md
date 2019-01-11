@@ -11,6 +11,7 @@ The following instruction is mainly relevant for macOS.
 - [The Illustrated Children’s Guide to Kubernetes](https://www.cncf.io/the-childrens-illustrated-guide-to-kubernetes/)
 - [Concepts](https://kubernetes.io/docs/concepts/)
 - [Tutorial](https://kubernetes.io/docs/tutorials/)
+- [Technical details about Docker and Kubernetes for Mac](http://collabnix.com/how-docker-for-mac-works-under-the-hood/)
 
 ## Setup Dashboard
 
@@ -111,3 +112,44 @@ Create `the-pipeline` context for the `the-pipeline` namespace.
 ```
 kubectl config set-context the-pipeline --namespace=the-pipeline
 ```
+
+## Minikube
+
+Prerequisites:
+
+- [Setup loopback alias and `dnsmasq`](https://github.com/zoltan-nz/playing-with-gitlab#setup-dnsmasq-with-loopback-alias).
+- [Install `hyperkit` driver](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperkit-driver).
+
+```shell
+brew install hyperkit
+brew install docker-machine-driver-hyperkit
+```
+
+- [Turn on DHCP client on `dnsmasq`](https://wiki.archlinux.org/index.php/dnsmasq).
+
+Trying to create a new docker-machine but `dnsmasq` dhcp options not picked up.
+
+```shell
+docker-machine create --driver hyperkit --engine-opt dns=10.254.254.254
+```
+
+Add `listen-address=192.168.64.1` to `dnsmasq.conf`. But it works only if the cluster already started.
+
+```
+brew install kubernetes-cli
+brew cask install minikube 
+```
+
+Start minikube with `hyperkit` VM, custom domain name, custom cpu number, and hard drive allocation.
+
+```
+minikube start --vm-driver hyperkit --dns-domain "minikube.loc" --cpus 4 --memory 6114 --disk-size 64g
+```
+
+## Kubernetes vs Openshift
+
+- [10 most important differences between OpenShift and Kubernetes](https://cloudowski.com/articles/10-differences-between-openshift-and-kubernetes/)
+
+## Create a Registry in Minikube
+
+- <https://blog.hasura.io/sharing-a-local-registry-for-minikube-37c7240d0615/>
