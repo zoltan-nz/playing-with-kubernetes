@@ -1,0 +1,9 @@
+current-context: admin-user-token-xxxxx
+contexts:
+- context:
+    user: admin-user-token-xxxxx
+  name: admin-user-token-xxxxx
+users:
+- name: admin-user-token-xxxxx
+  user:
+    token: 

@@ -13,7 +13,7 @@ The following instruction is mainly relevant for macOS.
 - [Tutorial](https://kubernetes.io/docs/tutorials/)
 - [Technical details about Docker and Kubernetes for Mac](http://collabnix.com/how-docker-for-mac-works-under-the-hood/)
 
-## Setup Dashboard
+## Setup WebUI(Dashboard)
 
 [Dashboard README](./kubernetes-configurations/dashboard/README.md)
 
@@ -153,3 +153,7 @@ minikube start --vm-driver hyperkit --dns-domain "minikube.loc" --cpus 4 --memor
 ## Create a Registry in Minikube
 
 - <https://blog.hasura.io/sharing-a-local-registry-for-minikube-37c7240d0615/>
+
+## Kubernetes Cheat Sheet
+
+- <https://kubernetes.io/docs/reference/kubectl/cheatsheet/>
