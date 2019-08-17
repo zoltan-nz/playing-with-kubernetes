@@ -157,3 +157,30 @@ minikube start --vm-driver hyperkit --dns-domain "minikube.loc" --cpus 4 --memor
 ## Kubernetes Cheat Sheet
 
 - <https://kubernetes.io/docs/reference/kubectl/cheatsheet/>
+
+## Using MicroK8s with Multipass on macOS
+
+- Useful article: <https://itnext.io/microk8s-on-macos-98f1de3aa63e>
+- Article from Ubuntu: <https://ubuntu.com/blog/kubernetes-on-mac-how-to-set-up>
+- MicroK8s: <https://microk8s.io/#quick-start>
+- Multipass: <https://multipass.run/>
+
+Install Multipass Ubuntu virtual machine runner tool with brew:
+
+```
+brew cask install multipass
+```
+
+Run a virtual machine. The following command will create a vm with 100G disk, 16G memory and 8 cores CPU.
+
+```
+multipass launch -n primary -c 8 -d 100G -m 16G
+multipass exec primary -- sudo apt update -y && sudo apt dist-upgrade -y
+multipass exec primary -- sudo snap install microk8s --classic
+multipass exec primary -- sudo usermod -a -G microk8s multipass
+multipass exec primary -- sudo iptables -P FORWARD ACCEPT
+```
+
+## NEW! Alternativ Dashboard from VMWare: Octant
+
+- https://github.com/vmware/octant
