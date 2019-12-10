@@ -1,0 +1,16 @@
+{
+  "name": "nodejs-hello-world-app",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Hello World App",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node --experimental-modules src/index.js",
+    "build:docker": "docker build --tag koa-hello-world:latest ."
+  },
+  "author": "Z",
+  "license": "MIT",
+  "dependencies": {
+    "koa": "^2.11.0"
+  }
+}

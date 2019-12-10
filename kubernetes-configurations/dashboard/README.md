@@ -12,7 +12,6 @@ Getting the authentication token
 
 - [Creating Bearer Token](https://github.com/kubernetes/dashboard/wiki/Creating-sample-user)
 
-
 The `dashboard-admin-user` configuration file creates a new service account and assign a `cluster-admin` role to it. Connected token can be listed with the `describe secret` command. The `config-sample.yaml` file can be copied to `~/.kube` folder with updated fields. It can be used to login in Dashboard.
 
 ```

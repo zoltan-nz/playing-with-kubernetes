@@ -1,6 +1,6 @@
 # Deploy under Kubernetes Namespace
 
-- [Namespace walktrough](https://kubernetes.io/docs/tasks/administer-cluster/namespaces-walkthrough/)
+- [Namespace walk-through](https://kubernetes.io/docs/tasks/administer-cluster/namespaces-walkthrough/)
 
 Check we are in the right cluster
 
@@ -11,7 +11,7 @@ kubectl config get-contexts
 kubectl config use-context docker-desktop
 ```
 
-Create a new namespace and attache to a context with a user
+Create a new namespace and attach to a context with a user
 
 ```bash
 $ kubectl create namespace flaskr

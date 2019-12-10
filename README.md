@@ -13,9 +13,15 @@ The following instruction is mainly relevant for macOS.
 - [Tutorial](https://kubernetes.io/docs/tutorials/)
 - [Technical details about Docker and Kubernetes for Mac](http://collabnix.com/how-docker-for-mac-works-under-the-hood/)
 
-## Setup WebUI(Dashboard)
+## Setup WebUI(Dashboard) or Use Octant
 
-[Dashboard README](./kubernetes-configurations/dashboard/README.md)
+- [Dashboard README](./kubernetes-configurations/dashboard/README.md)
+- [Octant](https://octant.dev/)
+
+```bash
+$ brew install octant
+$ octant
+```
 
 ## Getting information about your cluster and nodes
 
@@ -42,8 +48,8 @@ helm init --service-account tiller
 
 ### Let's create our simple application in Node.js
 
-- Check `./app` folder.
-- Check `./app/Dockerfile`.
+- Check `./hello-world-app` folder.
+- Check `./hello-world-app/Dockerfile`.
 
 ```
 $ docker build -t zoltannz/kubernetes-app.
@@ -65,7 +71,7 @@ $ kubectl run hello-world --image=zoltannz/kubernetes-app --port=3000
 - Check pods on Dashboard.
 - Deploy container with GUI.
 
-```
+```bash
 $ kubectl get deployments
 ```
 
@@ -78,7 +84,7 @@ $ open http://localhost:8001/api/v1/proxy/namespaces/default/pods/hello-world-54
 
 Playing with our deployed containers:
 
-```
+```bash
 $ kubectl get
 $ kubectl describe
 $ kubectl logs
@@ -87,7 +93,7 @@ $ kubectl exec
 
 Expose to public:
 
-```
+```bash
 $ kubectl get services
 $ kubectl expose deployment hello-world --type=NodePort --port 3000
 $ minikube service hello-world
@@ -137,7 +143,7 @@ Add `listen-address=192.168.64.1` to `dnsmasq.conf`. But it works only if the cl
 
 ```
 brew install kubernetes-cli
-brew cask install minikube 
+brew cask install minikube
 ```
 
 Start minikube with `hyperkit` VM, custom domain name, custom cpu number, and hard drive allocation.
@@ -180,7 +186,3 @@ multipass exec primary -- sudo snap install microk8s --classic
 multipass exec primary -- sudo usermod -a -G microk8s multipass
 multipass exec primary -- sudo iptables -P FORWARD ACCEPT
 ```
-
-## NEW! Alternativ Dashboard from VMWare: Octant
-
-- https://github.com/vmware/octant

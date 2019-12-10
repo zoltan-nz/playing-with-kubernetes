@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: my-lovely-koa-app
+  name: my-lovely-koa-app
+  namespace: koa-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-lovely-koa-app
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: my-lovely-koa-app
+    spec:
+      containers:
+      - image: koa-hello-world:latest
+        name: koa-hello-world
+        imagePullPolicy: Never
+        resources: {}
+status: {}
