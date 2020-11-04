@@ -23,6 +23,14 @@ $ brew install octant
 $ octant
 ```
 
+## Console based manager tool k9s
+
+- Install [k9s](https://k9scli.io/topics/install/)
+
+```
+brew install derailed/k9s/k9s
+```
+
 ## Using Waveworks Scope
 
 - [Scope](https://github.com/weaveworks/scope)
